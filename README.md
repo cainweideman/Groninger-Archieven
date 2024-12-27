@@ -45,3 +45,5 @@ The ultimate goal is to create a structured dataset of persons mentioned in thes
 
 ## Repository Structure
 
+groninger-archieven-ocr-pipeline/ ├── scripts/ │ ├── convert_pdf_to_png.py # Converts PDF files to PNG images │ ├── binarize_images.py # Binarizes PNG images │ ├── perform_ocr.py # Performs OCR on the images │ ├── extract_persons_llm.py # Extracts personal details using an LLM ├── data/ │ ├── pdfs/ # Input PDF files │ ├── images/ # Output images (PNG) │ ├── binarized_images/ # Binarized images │ ├── ocr_results/ # OCR output text files │ ├── extracted_persons/ # Extracted data ├── README.md # Project documentation ├── requirements.txt # Required Python libraries └── LICENSE # License information
+
