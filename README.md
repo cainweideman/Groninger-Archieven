@@ -18,7 +18,7 @@ This repository contains scripts developed for the **Groninger Archieven** proje
 
 This project was designed to process old Dutch address books from the **Groninger Archieven**. The pipeline performs the following tasks:
 
-1. Converts multi-page PDF files into PNG images for further processing.
+1. Converts multi-page PDF files into JPG images for further processing.
 2. Binarizes the PNG images to enhance OCR accuracy.
 3. Performs OCR to extract text from the binarized images.
 4. Identifies and extracts personal details (e.g., names and addresses) using a Large Language Model.
@@ -30,7 +30,7 @@ The ultimate goal is to create a structured dataset of persons mentioned in thes
 ## Pipeline Workflow
 
 1. **PDF to PNG Conversion**  
-   Converts PDF pages into individual PNG files using a script. This ensures compatibility with subsequent image processing tasks.
+   Converts PDF pages into individual JPG files using a script. This ensures compatibility with subsequent image processing tasks.
 
 2. **Image Binarization**  
    Prepares the images for OCR by binarizing them to reduce noise and improve text clarity.
@@ -43,7 +43,52 @@ The ultimate goal is to create a structured dataset of persons mentioned in thes
 
 ---
 
-## Repository Structure
+## Getting Started
 
-groninger-archieven-ocr-pipeline/ ├── scripts/ │ ├── convert_pdf_to_png.py # Converts PDF files to PNG images │ ├── binarize_images.py # Binarizes PNG images │ ├── perform_ocr.py # Performs OCR on the images │ ├── extract_persons_llm.py # Extracts personal details using an LLM ├── data/ │ ├── pdfs/ # Input PDF files │ ├── images/ # Output images (PNG) │ ├── binarized_images/ # Binarized images │ ├── ocr_results/ # OCR output text files │ ├── extracted_persons/ # Extracted data ├── README.md # Project documentation ├── requirements.txt # Required Python libraries └── LICENSE # License information
+### Installation
+#### Step 1: Clone the repository
+   ```bash
+   git clone https://github.com/cainweideman/Groninger-Archieven.git
+   cd Groninger-Archieven
+   ```
+#### Step 2: Install dependencies
+   ```bash
+   pip install -r requirements.txt
+   ```
+#### Step 3: Install Tesseract OCR
+#### Windows:
+1. **Download Tesseract**:
+   - Go to the [Tesseract OCR Installation page](https://github.com/UB-Mannheim/tesseract/wiki).
+   - Download the 64-bit Windows installer: `tesseract-ocr-w64-setup-5.4.0.20240606.exe`.
+   
+2. **Run the Installer**:
+   - Launch the downloaded `.exe` file to start installation.
+   - During installation, select **Dutch (Flemish)** under additional language options if you need OCR for that language.
 
+3. **Add Tesseract OCR to path**:
+   - To access tesseract-OCR from any location you may have to add the directory where the tesseract-OCR binaries are located to the Path variables,
+     probably C:\Program Files\Tesseract-OCR.
+
+#### MacOS:
+```bash
+brew install tesseract
+```
+### Usage
+1. **Convert PDFs to images:**
+   ```bash
+   python convert_pdf_to_jpg.py
+   ```
+2. **Preprocess images:**
+   ```bash
+   python binarize_images.py
+   ```
+3. **Perform OCR:**
+   ```bash
+   python ocr.py
+   ```
+4. **Extract people:**
+   ```bash
+   python extract_people.py
+   ```
+
+---
