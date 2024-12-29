@@ -2,6 +2,7 @@ import json
 import os
 import re
 import tqdm
+import argparse
 from llama_index.core import PromptTemplate
 from templates.system_message import system_message
 from templates.json_schema import json_schema
@@ -56,7 +57,7 @@ def make_human_message(record, template=prompt_template):
     return evaluated_human_prompt
 
 
-def ask_llama(system, user):
+def ask_llama(system, user, client, MODEL):
     """
     Sends a message to the Llama API to get a response based on system and user messages.
 
@@ -386,7 +387,7 @@ def preprocess_line(line):
     return line
 
 
-def process_line(line):
+def process_line(line, client, MODEL):
     """
     Processes a line of text by sending it to a language model and extracting structured data from the model's response.
     The function generates a system and human message, sends them to the model, and attempts to parse the JSON-like 
@@ -414,7 +415,7 @@ def process_line(line):
     person_list = []
     system_message = make_system_message
     human_message = make_human_message(line)
-    output = ask_llama(system_message, human_message)
+    output = ask_llama(system_message, human_message, client, MODEL)
 
     if not output:
         print("Empty response from language model.")
@@ -430,7 +431,7 @@ def process_line(line):
     return person_list
 
 
-def create_page_json(person_list, page_number, year, output_directory):
+def create_page_json(person_list, page_number, input_name, output_directory):
     """
     Creates a JSON file containing structured data for a specific page of a document, and saves it to the specified 
     output directory. The data includes information about the people listed on the page, the page number, and the 
@@ -439,53 +440,80 @@ def create_page_json(person_list, page_number, year, output_directory):
     Args:
         person_list (list): A list of dictionaries representing person records (e.g., names, addresses, etc.).
         page_number (int): The page number of the document being processed.
-        year (int): The year associated with the document or page.
+        input_name (str): The name of input file containing the text.
         output_directory (str): The directory where the JSON file will be saved. If the directory doesn't exist, 
                                 it will be created.
 
     Notes:
         - The function first checks if the output directory exists; if not, it will be created.
-        - It then generates a page object using the provided `person_list`, `page_number`, and `year`.
-        - The page object is serialized into a JSON file with the format: `{year}_{page_number}.json`.
+        - It then generates a page object using the provided `person_list`, `page_number`, and `input_name`.
+        - The page object is serialized into a JSON file with the format: `{input_name}_{page_number}.json`.
         - If there is an error during file creation or writing, an error message is printed.
         - The resulting JSON file will contain structured information about the people on the page and will be saved
-          in the specified directory with a filename format that includes the year and page number.
+          in the specified directory with a filename format that includes the name of the input file and page number.
 
     Exceptions:
         - If there is an error creating the output directory or saving the JSON file, an error message is printed.
     """
-    if not os.path.exists(output_directory):
-        os.makedirs(output_directory, exist_ok=True)
 
-    page_object = create_page_object(person_list, page_number, year)
+    page_object = create_page_object(person_list, page_number, input_name)
 
     try:
-        json_filename = f'{output_directory}/{year}_{page_number}.json'
+        json_filename = f'{output_directory}/{input_name}_{page_number}.json'
         with open(json_filename, 'w+') as output_file:
             json.dump(page_object, output_file, indent=4)
     except Exception as e:
         print(f"Failed to save JSON file: {e}")
 
 
-BASEURL = 'http://localhost:8000/v1/'
-APIKEY = 'EMPTY'
-MODEL = "meta-llama/Llama-3.1-8B-Instruct"
+def main():
+    parser = argparse.ArgumentParser(description="Description of your script.")
+    parser.add_argument("-i", "--input", type=str, required=True, help="Path to the input file.")
+    parser.add_argument("-o", "--output", type=str, help="Path to the output directory.")
+    parser.add_argument("-s", "--start_page", type=int, required=True, help="An optional integer parameter.")
+    parser.add_argument("-e", "--end_page", type=int, required=True, help="An optional integer parameter.")
 
-client = OpenAI(base_url=BASEURL,api_key=APIKEY)
+    args = parser.parse_args()
 
-year = "1886"
-path_to_json = f"book_text/{year}.json"
-output_directory = f'register/{year}'
+    # Access the arguments
+    path_to_json = args.input
+    input_name = os.path.splitext(os.path.basename(path_to_json))[0]
 
-data = load_json(path_to_json)
-first_page, last_page = 44, 45
+    print(f"Input file: {path_to_json}")
+    if args.output:
+        output_directory = args.output
+        print(f"Output directory: {output_directory}")
+    else:
+        output_directory = os.path.join(os.path.split(os.path.abspath(__file__))[0], input_name)
+        print(f"Output directory: {os.path.abspath(output_directory)}")
 
-if data:
-    text_list = get_text(data, first_page, last_page)
-    for index, page in tqdm(enumerate(text_list), total=len(text_list), desc='Processing Pages', unit='page', ncols=100):
-        person_list = []
-        page_number = first_page + index
-        page_lines = process_page(page)
-        for line in page_lines:
-            person_list.append(process_line(preprocess_line(line)))
-        create_page_json(person_list, page_number, year, output_directory)
+    # Make directory if it does not exist
+    try:
+        os.makedirs(output_directory, exist_ok=True)
+    except OSError as e:
+        print(f"Failed to create directory: {e}")
+
+    print(f"Start at page: {args.start_page}")
+    print(f"End at page: {args.end_page}")
+
+    BASEURL = 'http://localhost:8000/v1/'
+    APIKEY = 'EMPTY'
+    MODEL = "meta-llama/Llama-3.1-8B-Instruct"
+
+    client = OpenAI(base_url=BASEURL,api_key=APIKEY)
+
+    data = load_json(path_to_json)
+    first_page, last_page = 44, 45
+
+    if data:
+        text_list = get_text(data, first_page, last_page)
+        for index, page in tqdm(enumerate(text_list), total=len(text_list), desc='Processing Pages', unit='page', ncols=100):
+            person_list = []
+            page_number = first_page + index
+            page_lines = process_page(page)
+            for line in page_lines:
+                person_list.append(process_line(preprocess_line(line, client, MODEL)))
+            create_page_json(person_list, page_number, input_name, output_directory)
+
+if __name__ == "__main__":
+    main()
