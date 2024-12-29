@@ -90,9 +90,5 @@ brew install tesseract
    ```bash
    python extract_people.py -input 1854.json -output output_folder/1854 -start_page 7 -end_page 209
    ```
-   for help
-   ```bash
-   python extract_people.py -help
-   ```
 
 ---
