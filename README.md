@@ -76,19 +76,19 @@ brew install tesseract
 ### Usage
 1. **Convert PDFs to images:**
    ```bash
-   python convert_pdf_to_jpg.py
+   python convert_pdf_to_jpg.py --input 1926.pdf [--ouput output/1926]
    ```
 2. **Preprocess images:**
    ```bash
-   python binarize_images.py
+   python binarize_images.py --input output/1926 [--output binarized_images/1926]
    ```
 3. **Perform OCR:**
    ```bash
-   python ocr.py
+   python ocr.py --input binarized_images/1926 [--output ocr_results] [--congif 3]
    ```
 4. **Extract people:**
    ```bash
-   python extract_people.py --input 1854.json --output output_folder/1854 --start_page 7 --end_page 209
+   python extract_people.py --input 1854.json [--output output_folder/1854] --start_page 7 --end_page 209
    ```
 
 ---
