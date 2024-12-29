@@ -1,14 +1,14 @@
-import json
 import os
 import re
-import tqdm
+import json
 import argparse
-from llama_index.core import PromptTemplate
-from templates.system_message import system_message
-from templates.json_schema import json_schema
-from templates.prompt import prompt_template
-from templates.page_object import create_page_object
+from tqdm import tqdm
 from openai import Client, OpenAI
+from llama_index.core import PromptTemplate
+from templates.prompt import prompt_template
+from templates.json_schema import json_schema
+from templates.system_message import system_message
+from templates.page_object import create_page_object
 
 
 def make_system_message(system_message=system_message, schema=json_schema):
