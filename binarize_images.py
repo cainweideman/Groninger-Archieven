@@ -56,7 +56,7 @@ def process_image(img_path, output_dir, threshold=160, crop=0):
     binary_image = binarize_image(gray_image, threshold)
     cropped_image = crop_image(binary_image, crop)
         
-    output_file_path = os.path.join(output_dir, f"binarized_{img_name}")
+    output_file_path = os.path.join(output_dir, f"binarized_{img_name}.jpg")
     cv2.imwrite(output_file_path, cropped_image)
 
 
@@ -74,7 +74,7 @@ def process_directory(input_path, output_dir, threshold=160, crop=0):
 def main():
     parser = argparse.ArgumentParser(description="Convert PDF files to JPG images.")
     parser.add_argument("-i", "--input", type=str, required=True, help="Path to a single image, a directory of imagess, or a directory containing nested directories with images.")
-    parser.add_argument("-o", "--output", type=str, help="Path to the output directory. Default: 'binarized_images' in the current working directory.", default="./binarized_imgages")
+    parser.add_argument("-o", "--output", type=str, help="Path to the output directory. Default: 'binarized_images' in the current working directory.", default="./binarized_images")
     parser.add_argument("-t", "--threshold", type=int, help="Threshold value for binarization.", default=160)
     parser.add_argument("-c", "--crop", type=float, help="Fraction of the image dimensions to crop from each side.", default=0.0)
 

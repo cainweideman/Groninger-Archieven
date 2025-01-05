@@ -174,3 +174,4 @@ cython_debug/
 # Delete later
 test.py
 /book_text
+/ocr_results

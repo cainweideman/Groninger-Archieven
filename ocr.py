@@ -70,7 +70,8 @@ def process_directory(input_path, output_dir, language="nld", config=3):
 
 
 def main():
-    pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files/Tesseract-OCR/tesseract.exe'
+    
+    #pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files/Tesseract-OCR/tesseract.exe'
 
     parser = argparse.ArgumentParser(description="Convert PDF files to JPG images.")
     parser.add_argument("-i", "--input", type=str, required=True, help="Path to a single image, or a directory of images.")
@@ -93,11 +94,11 @@ def main():
     if os.path.isfile(input_path):
         # Single PDF file
         print(f"Processing single file: {input_path}")
-        ocr_page(img_path=input_path, language=args.langauge, config=args.config)
+        print(ocr_page(input_path = input_path, config=args.config))
     elif os.path.isdir(input_path):
         # Directory or nested directories of PDFs
         print(f"Processing directory: {input_path}")
-        process_directory(img_path=input_path, output_dir=output_dir, language=args.langauge, config=args.config)
+        process_directory(input_path=input_path, output_dir=output_dir, config=args.config)
     else:
         print(f"Error: The input path {input_path} does not exist or is not valid.")
         exit(1)

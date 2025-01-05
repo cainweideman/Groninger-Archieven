@@ -13,17 +13,17 @@ def convert_pdf_to_jpg(input_path, output_dir, zoom=2, dpi=200):
     except Exception as e:
         print(f"An unexpected error occurred while opening '{input_path}': {e}")
     
-    for page_number in tqdm(range(len(total_pages)), desc='Converting pages', ncol=100, unit='page'):
+    for page_number in tqdm(range(total_pages), desc='Converting pages', ncols=100, unit='page'):
         page = doc.load_page(page_number)
         mat = fitz.Matrix(zoom, zoom)  # Scale matrix for high resolution
         image = page.get_pixmap(matrix=mat, dpi=dpi)
-        
+
         # Construct output filename with zero-padded page number
-        output_filename = f"{os.path.basename(input_path).split('.')[0]}_page_{page_number:04}.jpg"
+        output_filename = f"{os.path.basename(input_path).split('.')[0]}_page_{1 + page_number:04}.jpg"
         output_path = os.path.join(output_dir, output_filename)
         
         try:
-            image.save(output_path, format="JPEG")
+            image.save(output_path)
         except PermissionError:
             print(f"Error: Permission denied when saving to '{output_path}'.")
         except FileNotFoundError:
