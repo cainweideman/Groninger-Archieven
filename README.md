@@ -6,13 +6,10 @@ This repository contains scripts developed for the **Groninger Archieven** proje
 
 - [Project Overview](#project-overview)
 - [Pipeline Workflow](#pipeline-workflow)
-- [Repository Structure](#repository-structure)
 - [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
   - [Installation](#installation)
   - [Usage](#usage)
 - [Acknowledgments](#acknowledgments)
-- [License](#license)
 
 ## Project Overview
 
@@ -71,7 +68,7 @@ The ultimate goal is to create a structured dataset of persons mentioned in thes
 
 #### MacOS:
 ```bash
-brew install tesseract
+brew install tesseract-lang
 ```
 ### Usage
 1. **Convert PDFs to images:**
@@ -92,3 +89,7 @@ brew install tesseract
    ```
 
 ---
+
+## Acknowledgments
+
+This project was developed in collaboration with **Groninger Archieven**, which provided access to their historical address books for analysis. We would like to thank the project team, including Emin Tatar, Lieuwe Jongsma, Kick Bartram, Nathan Peitz, Timucin Mutlu, Minxuan Wang, Viktor Alarov, and Cain Weideman, for their dedication and contributions. 
