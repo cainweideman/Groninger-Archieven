@@ -9,6 +9,7 @@ This repository contains scripts developed for the **Groninger Archieven** proje
 - [Getting Started](#getting-started)
   - [Installation](#installation)
   - [Usage](#usage)
+- [Repository Structure](#repository-structure)
 - [Acknowledgments](#acknowledgments)
 
 ## Project Overview
