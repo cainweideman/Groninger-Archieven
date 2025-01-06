@@ -175,3 +175,4 @@ cython_debug/
 test.py
 /book_text
 /ocr_results
+/register

@@ -90,6 +90,27 @@ brew install tesseract-lang
 
 ---
 
+## Repository Structure
+
+```plaintext
+Groninger-Archieven/
+├── templates/                   # All templates for prompts, schema's, and dictionaries
+│   ├── json_schema.py           # JSON schema for the output of the LLM
+│   ├── page_object.py           # JSON schema for a bookpage
+│   ├── prompt.py                # Template for LLM user prompt
+|   └── system_message.py        # Template for LLM system prompt
+|
+├── binarize_images.py           # Preprocess images for OCR
+├── convert_pdf_to_jpg.py        # Convert PDF to single JPG images
+├── extract_people.py            # Extract people from OCR data
+├── ocr.py                       # Performs OCR on images
+|
+├── README.md                    # Project documentation and instructions
+├── requirements.txt             # List of required Python libraries
+└── .gitignore                   # Files and directories to ignore in Git
+```
+---
+
 ## Acknowledgments
 
 This project was developed in collaboration with **Groninger Archieven**, which provided access to their historical address books for analysis. We would like to thank the project team, including Emin Tatar, Lieuwe Jongsma, Kick Bartram, Nathan Peitz, Timucin Mutlu, Minxuan Wang, Viktor Alarov, and Cain Weideman, for their dedication and contributions.
