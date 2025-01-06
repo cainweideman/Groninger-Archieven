@@ -102,7 +102,7 @@ Groninger-Archieven/
 |
 ├── binarize_images.py           # Preprocess images for OCR
 ├── convert_pdf_to_jpg.py        # Convert PDF to single JPG images
-├── extract_people.py            # Extract people from OCR data
+├── extract_people.py            # Extract people from OCR data using LLM
 ├── ocr.py                       # Performs OCR on images
 |
 ├── README.md                    # Project documentation and instructions
