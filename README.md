@@ -57,15 +57,32 @@ The ultimate goal is to create a structured dataset of persons mentioned in thes
 #### Windows:
 1. **Download Tesseract**:
    - Go to the [Tesseract OCR Installation page](https://github.com/UB-Mannheim/tesseract/wiki).
-   - Download the 64-bit Windows installer: `tesseract-ocr-w64-setup-5.4.0.20240606.exe`.
+   - Download the latest stable version for Windows.
    
 2. **Run the Installer**:
    - Launch the downloaded `.exe` file to start installation.
-   - During installation, select **Dutch (Flemish)** under additional language options if you need OCR for that language.
+   - By default, Tesseract is installed in: C:\Program Files\Tesseract-OCR
+   - During installation, select **Dutch (Flemish)** under additional language options.
 
 3. **Add Tesseract OCR to path**:
-   - To access tesseract-OCR from any location you may have to add the directory where the tesseract-OCR binaries are located to the Path variables,
-     probably C:\Program Files\Tesseract-OCR.
+   1. **Open Environment Variables**:  
+      - Press `Win + S` and search for "Environment Variables."  
+      - Select **Edit the system environment variables**.  
+
+   2. **Edit PATH Variable**:  
+      - In the **System Properties** window, click **Environment Variables**.  
+      - Under **System variables**, find the `Path` variable, select it, and click **Edit**.  
+
+   3. **Add Tesseract Path**:  
+      - Click **New** and add the path to the Tesseract executable:  
+      `C:\Program Files\Tesseract-OCR`  
+
+   4. **Verify the PATH**:  
+      - Open a new Command Prompt and type:  
+         ```bash
+         tesseract --version
+         ```  
+      - If the version information is displayed, Tesseract is successfully added to your PATH.  
 
 #### MacOS:
 ```bash
