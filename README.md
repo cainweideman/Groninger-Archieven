@@ -82,7 +82,13 @@ The ultimate goal is to create a structured dataset of persons mentioned in thes
          ```bash
          tesseract --version
          ```  
-      - If the version information is displayed, Tesseract is successfully added to your PATH.  
+      - If the version information is displayed, Tesseract is successfully added to your PATH.
+
+4. **Specify the Tesseract Path in Your Script**:
+   - Uncomment the following line in ocr.py and make sure that it refers to where tesseract is installed:
+      ```python
+      #pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files/Tesseract-OCR/tesseract.exe'
+      ```
 
 #### MacOS:
 ```bash
