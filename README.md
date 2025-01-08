@@ -139,4 +139,4 @@ Groninger-Archieven/
 
 This project was developed in collaboration with **Groninger Archieven**, which provided access to their historical address books for analysis. We would like to thank the project team, including Emin Tatar, Lieuwe Jongsma, Kick Bartram, Nathan Peitz, Timucin Mutlu, Minxuan Wang, Viktor Alarov, and Cain Weideman, for their dedication and contributions.
 
-We utilized Tesseract OCR for text recognition and a LLaMA model for extracting personal details from the processed text. We extend our gratitude to the developers and maintainers of these powerful tools, whose open-source contributions made this project possible.
+We utilized [Tesseract OCR](https://github.com/tesseract-ocr/tesseract) for text recognition and Meta's [Llama-3.1-8B-Instruct](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct) model for extracting personal details from the processed text. We extend our gratitude to the developers and maintainers of these powerful tools, whose open-source contributions made this project possible.
