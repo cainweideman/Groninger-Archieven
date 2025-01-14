@@ -413,7 +413,7 @@ def process_line(line, client, MODEL):
           to the list.
     """
     person_list = []
-    system_message = make_system_message
+    system_message = make_system_message()
     human_message = make_human_message(line)
     output = ask_llama(system_message, human_message, client, MODEL)
 
@@ -456,7 +456,7 @@ def create_page_json(person_list, page_number, input_name, output_directory):
         - If there is an error creating the output directory or saving the JSON file, an error message is printed.
     """
 
-    page_object = create_page_object(person_list, page_number, input_name)
+    page_object = create_page_object(input_name, page_number, person_list)
 
     try:
         json_filename = f'{output_directory}/{input_name}_{page_number}.json'
@@ -503,7 +503,8 @@ def main():
     client = OpenAI(base_url=BASEURL,api_key=APIKEY)
 
     data = load_json(path_to_json)
-    first_page, last_page = 44, 45
+    first_page = args.start_page
+    last_page = args.end_page
 
     if data:
         text_list = get_text(data, first_page, last_page)
@@ -512,7 +513,7 @@ def main():
             page_number = first_page + index
             page_lines = process_page(page)
             for line in page_lines:
-                person_list.append(process_line(preprocess_line(line, client, MODEL)))
+                person_list.append(process_line(preprocess_line(line), client, MODEL))
             create_page_json(person_list, page_number, input_name, output_directory)
 
 if __name__ == "__main__":
