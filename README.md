@@ -41,10 +41,10 @@ The ultimate goal is to create a structured dataset of persons mentioned in thes
 4. **Entity Extraction with LLM**  
    Processes the OCR output to identify and extract personal details (names, addresses, etc.) using a Large Language Model.
 
-5. **(optional) Combining the JSON files**
+5. **(optional) Combining the JSON files**  
    Combines JSON files in a directory into one JSON file.
 
-6. **(optional) Converting JSON to CSV**
+6. **(optional) Converting JSON to CSV**  
    Converts a JSON file into a CSV file.
 
 ---
