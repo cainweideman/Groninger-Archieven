@@ -20,6 +20,8 @@ This project was designed to process old Dutch address books from the **Groninge
 2. Binarizes the PNG images to enhance OCR accuracy.
 3. Performs OCR to extract text from the binarized images.
 4. Identifies and extracts personal details (e.g., names and addresses) using a Large Language Model.
+5. Combines the JSON output of the LLM into one JSON per book (optional).
+6. Converts the JSON files into CSV files (optional).
 
 The ultimate goal is to create a structured dataset of persons mentioned in these historical documents.
 
@@ -38,6 +40,12 @@ The ultimate goal is to create a structured dataset of persons mentioned in thes
 
 4. **Entity Extraction with LLM**  
    Processes the OCR output to identify and extract personal details (names, addresses, etc.) using a Large Language Model.
+
+5. **(optional) Combining the JSON files**
+   Combines JSON files in a directory into one JSON file.
+
+6. **(optional) Converting JSON to CSV**
+   Converts a JSON file into a CSV file.
 
 ---
 
@@ -85,7 +93,7 @@ The ultimate goal is to create a structured dataset of persons mentioned in thes
       - If the version information is displayed, Tesseract is successfully added to your PATH.
 
 4. **Specify the Tesseract Path in Your Script**:
-   - Uncomment the following line in ocr.py and make sure that it refers to where tesseract is installed:
+   - Uncomment line 74 in ocr.py and make sure that it refers to where tesseract is installed:
       ```python
       #pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files/Tesseract-OCR/tesseract.exe'
       ```
@@ -111,6 +119,14 @@ brew install tesseract-lang
    ```bash
    python extract_people.py --input 1854.json [--output output_folder/1854] --start_page 7 --end_page 209
    ```
+5. **Combine JSON files:**
+   ```bash
+   python combine_jsons.py --input output_folder/1854 [--output combined_jsons/1854.json]
+   ```
+6. **Convert JSON file to CSV file:**
+   ```bash
+   python convert_json_to_csv --input combined_jsons/1854.json [--output output.csv]
+   ```
 
 ---
 
@@ -124,10 +140,12 @@ Groninger-Archieven/
 │   ├── prompt.py                # Template for LLM user prompt
 |   └── system_message.py        # Template for LLM system prompt
 |
-├── binarize_images.py           # Preprocess images for OCR
 ├── convert_pdf_to_jpg.py        # Convert PDF to single JPG images
-├── extract_people.py            # Extract people from OCR data using LLM
+├── binarize_images.py           # Preprocess images for OCR
 ├── ocr.py                       # Performs OCR on images
+├── extract_people.py            # Extract people from OCR data using LLM
+├── combine_jsons.py             # Combined JSON files in a directory into one JSON file
+├── convert_json_to_csv.py       # Converts a JSON file into a CSV file
 |
 ├── README.md                    # Project documentation and instructions
 ├── requirements.txt             # List of required Python libraries
