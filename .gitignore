@@ -176,3 +176,7 @@ test.py
 /book_text
 /ocr_results
 /register
+/combined_registers
+.DS_store
+test2.py
+/register_csv
