@@ -9,8 +9,6 @@ def main():
     parser.add_argument("-o", "--output", type=str, help="Path to the output file. Default: 'output.csv' in the current working directory.", default="./output.csv",)
 
     args = parser.parse_args()
-
-    # Access the arguments
     input_file = os.path.abspath(args.input)
     output_file = os.path.abspath(args.output)
     output_dir = os.path.dirname(output_file)
@@ -20,7 +18,6 @@ def main():
             os.makedirs(output_dir, exist_ok=True)
         except OSError as e:
             print(f"Failed to create directory: {e}")
-
 
     # Load the JSON data
     try:
@@ -32,7 +29,6 @@ def main():
         print(f"JSON decoding failed: {e}")
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
-
 
     # Open the CSV file for writing
     try:
