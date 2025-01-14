@@ -134,7 +134,7 @@ brew install tesseract-lang
 
 ```plaintext
 Groninger-Archieven/
-├── templates/                   # All templates for prompts, schema's, and dictionaries
+├── templates/                   # All templates for prompts, schema's, and dictionaries (required for extract_people.py)
 │   ├── json_schema.py           # JSON schema for the output of the LLM
 │   ├── page_object.py           # JSON schema for a bookpage
 │   ├── prompt.py                # Template for LLM user prompt
