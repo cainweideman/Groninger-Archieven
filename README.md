@@ -59,7 +59,7 @@ The ultimate goal is to create a structured dataset of persons mentioned in thes
 6. **(optional) `convert_json_to_csv.py`**  
    Converts a JSON file into a CSV file.
 
----
+
 
 ## Getting Started
 
@@ -84,6 +84,7 @@ Before running the scripts in this repository, ensure the following prerequisite
 
 > **Note:** Refer to your LLM provider's documentation for specific setup instructions.
 
+---
 
 ### Installation
 #### Step 1: Clone the repository
@@ -151,6 +152,8 @@ brew --version
 ```bash
 brew install tesseract-lang
 ```
+
+---
 
 ### Serving a LLM on Hábrók:
 - Windows: download and use [MobaX](https://mobaxterm.mobatek.net/download-home-edition.html).
@@ -229,6 +232,8 @@ ssh -NL 8000:a100gpu6:8000 pnumber@login1.hb.hpc.rug.nl
 http://localhost:8000/v1/models
 ```
 - You should see the LLM running.
+
+---
 
 ### Usage
 
