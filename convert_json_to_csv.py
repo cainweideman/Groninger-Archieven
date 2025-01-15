@@ -6,7 +6,7 @@ import argparse
 def main():
     parser = argparse.ArgumentParser(description="Convert JSON to CSV.")
     parser.add_argument("-i", "--input", type=str, required=True, help="Path to a single JSON.")
-    parser.add_argument("-o", "--output", type=str, help="Path to the output file. Default: 'output.csv' in the current working directory.", default="./output.csv",)
+    parser.add_argument("-o", "--output", type=str, help="Path to the output file. Default: 'combined_json.csv' in the current working directory.", default="./combined_json.csv",)
 
     args = parser.parse_args()
     input_file = os.path.abspath(args.input)

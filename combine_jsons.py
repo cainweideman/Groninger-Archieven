@@ -5,7 +5,7 @@ import argparse
 def main():
 
     parser = argparse.ArgumentParser(description="Combine JSONs into one JSON dictionary.")
-    parser.add_argument("-i", "--input", type=str, required=True, help="Path to the directory containing the JSON files.")
+    parser.add_argument("-i", "--input", type=str, required=True, help="Path to the directory containing nested directories containing the JSON files.")
     parser.add_argument("-o", "--output", type=str, help="Path to the output directory. Default: 'combined_jsons' in the current working directory.", default="./combined_jsons",)
 
     args = parser.parse_args()

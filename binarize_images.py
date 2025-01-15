@@ -72,7 +72,7 @@ def process_directory(input_path, output_dir, threshold=160, crop=0):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Convert PDF files to JPG images.")
+    parser = argparse.ArgumentParser(description="Binarize and crop a single image, directory, or nested directories.")
     parser.add_argument("-i", "--input", type=str, required=True, help="Path to a single image, a directory of imagess, or a directory containing nested directories with images.")
     parser.add_argument("-o", "--output", type=str, help="Path to the output directory. Default: 'binarized_images' in the current working directory.", default="./binarized_images")
     parser.add_argument("-t", "--threshold", type=int, help="Threshold value for binarization.", default=160)

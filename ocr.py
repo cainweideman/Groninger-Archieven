@@ -73,7 +73,7 @@ def main():
     
     #pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files/Tesseract-OCR/tesseract.exe'
 
-    parser = argparse.ArgumentParser(description="Convert PDF files to JPG images.")
+    parser = argparse.ArgumentParser(description="Perform OCR on images.")
     parser.add_argument("-i", "--input", type=str, required=True, help="Path to a single image, or a directory of images.")
     parser.add_argument("-o", "--output", type=str, help="Path to the output directory. Default: 'ocr_results' in the current working directory.", default="./ocr_results")
     parser.add_argument("-c", "--config", type=int, help="Set the configuration for Tesseract.", default=3)

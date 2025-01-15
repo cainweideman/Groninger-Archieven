@@ -467,11 +467,11 @@ def create_page_json(person_list, page_number, input_name, output_directory):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Description of your script.")
+    parser = argparse.ArgumentParser(description="Extract data from OCRed files using LLM.")
     parser.add_argument("-i", "--input", type=str, required=True, help="Path to the input file.")
     parser.add_argument("-o", "--output", type=str, help="Path to the output directory.")
-    parser.add_argument("-s", "--start_page", type=int, required=True, help="An optional integer parameter.")
-    parser.add_argument("-e", "--end_page", type=int, required=True, help="An optional integer parameter.")
+    parser.add_argument("-s", "--start_page", type=int, required=True, help="First page you want to process.")
+    parser.add_argument("-e", "--end_page", type=int, required=True, help="Last page you want to process.")
 
     args = parser.parse_args()
 

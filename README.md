@@ -42,7 +42,16 @@ The ultimate goal is to create a structured dataset of persons mentioned in thes
    Processes the OCR output to identify and extract personal details (names, addresses, etc.) using a Large Language Model.
 
 5. **(optional) Combining the JSON files**  
-   Combines JSON files in a directory into one JSON file.
+   Combines multiple JSON files found in a directory with nested subdirectories into one JSON file per subdirectory.  
+   **Note**: Ensure the input directory is structured as follows:
+   ```plaintext
+   input_folder/
+   ├── subdir1/
+   │   ├── file1.json
+   │   └── file2.json
+   ├── subdir2/
+   │   ├── file3.json
+   │   └── file4.json  
 
 6. **(optional) Converting JSON to CSV**  
    Converts a JSON file into a CSV file.
@@ -103,30 +112,94 @@ The ultimate goal is to create a structured dataset of persons mentioned in thes
 brew install tesseract-lang
 ```
 ### Usage
-1. **Convert PDFs to images:**
-   ```bash
-   python convert_pdf_to_jpg.py --input 1926.pdf [--ouput output/1926]
-   ```
-2. **Preprocess images:**
-   ```bash
-   python binarize_images.py --input output/1926 [--output binarized_images/1926]
-   ```
-3. **Perform OCR:**
-   ```bash
-   python ocr.py --input binarized_images/1926 [--output ocr_results] [--congif 3]
-   ```
-4. **Extract people:**
-   ```bash
-   python extract_people.py --input 1854.json [--output output_folder/1854] --start_page 7 --end_page 209
-   ```
-5. **Combine JSON files:**
-   ```bash
-   python combine_jsons.py --input output_folder/1854 [--output combined_jsons/1854.json]
-   ```
-6. **Convert JSON file to CSV file:**
-   ```bash
-   python convert_json_to_csv --input combined_jsons/1854.json [--output output.csv]
-   ```
+
+Each script in this repository uses command-line arguments to configure its behavior. Below is a detailed description of the parameters for each script:
+
+### 1. `convert_pdf_to_jpg.py`
+Converts multi-page PDFs into JPG images.
+
+- `--input`: Path to the PDF file.  
+- `--output` (optional): Path to save the generated images. If not specified, images are saved in a default directory.
+
+**Example Command:**
+```bash
+python convert_pdf_to_jpg.py --input 1926.pdf --output image_folder/1926/
+```
+
+### 2. `binarize_images.py`
+Binarize and crop a single image, directory, or nested directories.
+
+- `--input`: Path to the PDF file or directory.  
+- `--output` (optional): Path to the output directory. Default: 'binarized_images' in the current working directory.
+- `--threshold` (optional): Threshold value for binarization. Default: 160.
+- `--crop` (optional): Fraction of the image dimensions to crop from each side. Default: 0.00
+
+**Example Command:**
+```bash
+python binarize_images.py --input image_folder/1926/ --output binarized_images/1926/ --threshold 165 --crop 0.05
+```
+
+### 3. `ocr.py`
+Perform OCR using Tesseract on a single image or a directory of images.
+
+- `--input`: Path to a single image, or a directory of images.
+- `--output` (optional): Path to the output directory. Default: 'ocr_results' in the current working directory.
+- `--config` (optional): Set the configuration for Tesseract page segmentation modes. Default: 3
+
+```plaintext
+Page segmentation modes:
+  0    Orientation and script detection (OSD) only.
+  1    Automatic page segmentation with OSD.
+  2    Automatic page segmentation, but no OSD, or OCR.
+  3    Fully automatic page segmentation, but no OSD. (Default)
+  4    Assume a single column of text of variable sizes.
+  5    Assume a single uniform block of vertically aligned text.
+  6    Assume a single uniform block of text.
+  7    Treat the image as a single text line.
+  8    Treat the image as a single word.
+  9    Treat the image as a single word in a circle.
+ 10    Treat the image as a single character.
+ 11    Sparse text. Find as much text as possible in no particular order.
+ 12    Sparse text with OSD.
+ 13    Raw line. Treat the image as a single text line, bypassing hacks that are Tesseract-specific.
+```
+
+**Example Command:**
+```bash
+python ocr.py --input binarized_images/1926/ --output ocr_results/ --config 4
+```
+
+### 4. `extract_people.py`
+Processes the OCR output to identify and extract personal details (names, addresses, etc.) using a Large Language Model.
+Saves the results in a JSON file per page.
+
+- `--input`: Path to the input file.
+- `--output` (optional): Path to the output directory. Default: Name of the input file in the current working directory.
+- `--start_page`: First page you want to process.
+- `--end_page`: Last page you want to process.
+
+```bash
+python extract_people.py --input ocr_results/1926.json --output llm_results/1926 --start_page 121 --end_page 607
+```
+
+### 5. `combine_jsons.py`
+Combine the directory of subdirectories containing the LLM results into a single JSON file per subdirectory.
+
+- `--input`: Path to the input directory.
+- `--output` (optional): Path to the output directory. Default: 'combined_jsons' in the current working directory.
+
+```bash
+python combine_jsons.py --input llm_results/ --output combined_llm_results/
+```
+
+### 6. `convert_json_to_csv.py`
+Convert a combined JSON into a CSV file.
+
+- `--input`: Path to the input file.
+- `--output` (optional): Path to the output file. Default: 'combined_json.csv' in the current working directory.
+```bash
+python convert_json_to_csv --input combined_llm_results/1926.json --output csv_llm_results/1926.csv
+```
 
 ---
 
