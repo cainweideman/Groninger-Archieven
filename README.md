@@ -11,6 +11,7 @@ This repository contains scripts developed for the **Groninger Archieven** proje
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
+  - [Serving a LLM on Hábrók](#serving-a-llm-on-hábrók)
   - [Usage](#usage)
 - [Repository Structure](#repository-structure)
 - [Acknowledgments](#acknowledgments)
@@ -160,7 +161,8 @@ brew install tesseract-lang
 - MacOS: use terminal.
 
 #### 1. Login with your account on Hábrók:
-- Use your RUG credentials
+- Open a terminal and type the following:
+- Use your RUG credentials to login.
 
 ```bash
 ssh <pnumber>@login1.hb.hpc.rug.nl
