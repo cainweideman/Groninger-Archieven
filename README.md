@@ -151,6 +151,85 @@ brew --version
 ```bash
 brew install tesseract-lang
 ```
+
+### Serving a LLM on Hábrók:
+- Windows: download and use [MobaX](https://mobaxterm.mobatek.net/download-home-edition.html).
+- MacOS: use terminal.
+
+#### 1. Login with your account on Hábrók:
+- Use your RUG credentials
+
+```bash
+ssh <pnumber>@login1.hb.hpc.rug.nl
+```
+
+> **Note:** If login1 does not work, you can try login2.
+
+#### 2. Start an interactive job on an A100 node (single GPU):
+- Adjust the time based on the task you will run.
+
+```bash
+srun --nodes=1 --ntasks=1 --partition=gpushort --mem=120G --time=04:00:00 --gres=gpu:a100:1 --pty bash
+```
+
+#### 3. Load the Python and CUDA modules:
+```bash
+module load Python/3.11.5-GCCcore-13.2.0 CUDA/12.1.1
+```
+> **Note:** Only required during the setup.
+
+#### 4. Create a virtual environment:
+- Additional information can be found on the [Hábrók-wiki](https://wiki.hpc.rug.nl/habrok/examples/python#building_the_python_virtual_environment)
+```bash
+python3 -m venv llm
+```
+> **Note:** Later, you only need to activate it.
+
+#### 5. Activate the virtual environment:
+```bash
+source llm/bin/activate
+```
+
+#### 6. Upgrade pip (optional):
+```bash
+pip install --upgrade pip
+```
+
+#### 7. Install vllm:
+```bash
+pip install vllm
+```
+> **Note:** The installation might take some time.
+
+#### 8. Add your Huggingface token to your environment:
+```bash
+export HF_HOME=/tmp
+export HF_TOKEN=<HuggingFace Token>
+```
+
+#### 9. Serve the model:
+```bash
+vllm serve meta-llama/Llama-3.1-8B-Instruct --download-dir /tmp/models --max-model-len 1024 --gpu-memory-utilization 0.95 --port 8000
+```
+> **Note:** This downnloads the model to the /tmp/model folder.
+
+#### 10. Forward Hábrók port to your local port:
+- Use your RUG credentials again.
+- Open a second terminal and enter the following:
+
+```bash
+ssh -NL 8000:a100gpu6:8000 pnumber@login1.hb.hpc.rug.nl
+```
+
+> **Note:** Take note of the node it is running on (e.g. a100gpu6)
+
+#### 11. Verify:
+- Open a browser on your device and enter the following address:
+```bash
+http://localhost:8000/v1/models
+```
+- You should see the LLM running.
+
 ### Usage
 
 Each script in this repository uses command-line arguments to configure its behavior. Below is a detailed description of the parameters for each script:
@@ -221,6 +300,8 @@ Saves the results in a JSON file per page.
 ```bash
 python extract_people.py --input ocr_results/1926.json --output llm_results/1926 --start_page 121 --end_page 607
 ```
+
+> **Note:** Ensure the LLM is served before running this script.
 
 ### 5. `combine_jsons.py`
 Combine the directory of subdirectories containing the LLM results into a single JSON file per subdirectory.
