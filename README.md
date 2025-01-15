@@ -71,9 +71,7 @@ Before running the scripts in this repository, ensure the following prerequisite
 - Install **Python 3.11** or later.  
 - Ensure you have `pip` installed for managing Python packages.
 
-#### 5. Large Language Model Access
-
-##### LLM Requirements:
+#### 2. Large Language Model Access
 - The `extract_people.py` script utilizes a Large Language Model (e.g., Meta's Llama-3.1-8B-Instruct). Ensure you have:
   - Access to the model's API or framework.
   - Necessary hardware or cloud resources if running the model locally.
