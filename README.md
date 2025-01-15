@@ -1,3 +1,5 @@
+![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)
+
 # Groninger-Archieven
 
 This repository contains scripts developed for the **Groninger Archieven** project, aimed at processing historical documents to extract valuable information about individuals. The pipeline includes converting PDF files to images, preprocessing these images, performing Optical Character Recognition (OCR), and extracting personal details using a Large Language Model (LLM).
@@ -59,6 +61,14 @@ The ultimate goal is to create a structured dataset of persons mentioned in thes
 ---
 
 ## Getting Started
+
+### Prerequisites
+
+Before running the scripts in this repository, ensure the following prerequisites are met:
+
+#### 1. Python Environment
+- Install **Python 3.11** or later.  
+- Ensure you have `pip` installed for managing Python packages.
 
 ### Installation
 #### Step 1: Clone the repository
