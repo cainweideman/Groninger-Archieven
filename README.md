@@ -32,19 +32,19 @@ The ultimate goal is to create a structured dataset of persons mentioned in thes
 
 ## Pipeline Workflow
 
-1. **PDF to PNG Conversion**  
+1. **`convert_jpg_to_png.py`**  
    Converts PDF pages into individual JPG files using a script. This ensures compatibility with subsequent image processing tasks.
 
-2. **Image Binarization**  
+2. **`binarize_images.py`**  
    Prepares the images for OCR by binarizing them to reduce noise and improve text clarity.
 
-3. **OCR Processing**  
+3. **`ocr.py`**  
    Uses OCR technology to extract raw text data from the processed images.
 
-4. **Entity Extraction with LLM**  
+4. **`extract_people.py`**  
    Processes the OCR output to identify and extract personal details (names, addresses, etc.) using a Large Language Model.
 
-5. **(optional) Combining the JSON files**  
+5. **(optional) `combine_jsons.py`**  
    Combines multiple JSON files found in a directory with nested subdirectories into one JSON file per subdirectory.  
    **Note**: Ensure the input directory is structured as follows:
    ```plaintext
@@ -56,7 +56,7 @@ The ultimate goal is to create a structured dataset of persons mentioned in thes
    │   ├── file3.json
    │   └── file4.json  
 
-6. **(optional) Converting JSON to CSV**  
+6. **(optional) `convert_json_to_csv.py`**  
    Converts a JSON file into a CSV file.
 
 ---
@@ -67,9 +67,26 @@ The ultimate goal is to create a structured dataset of persons mentioned in thes
 
 Before running the scripts in this repository, ensure the following prerequisites are met:
 
-#### Python Environment
+#### 1. Python Environment
 - Install **Python 3.11** or later.  
 - Ensure you have `pip` installed for managing Python packages.
+
+#### 5. Large Language Model Access
+
+##### LLM Requirements:
+- The `extract_people.py` script utilizes a Large Language Model (e.g., Meta's Llama-3.1-8B-Instruct). Ensure you have:
+  - Access to the model's API or framework.
+  - Necessary hardware or cloud resources if running the model locally.
+
+##### Set Up API Keys or Configuration:
+- Configure the API keys or local settings as required for Llama-3.1-8B-Instruct:
+  1. Request access to the LLM on [Huggingface](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct)
+  2. Create an access token on your Huggingface account and add 'meta-llama/Llama-3.1-8B-Instruct' repo to the repository permissions.
+  3. Check all write and read options for this access token and save the token.
+  4. copy and save your access token value.
+
+> **Note:** Refer to your LLM provider's documentation for specific setup instructions.
+
 
 ### Installation
 #### Step 1: Clone the repository
