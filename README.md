@@ -9,6 +9,7 @@ This repository contains scripts developed for the **Groninger Archieven** proje
 - [Project Overview](#project-overview)
 - [Pipeline Workflow](#pipeline-workflow)
 - [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
   - [Installation](#installation)
   - [Usage](#usage)
 - [Repository Structure](#repository-structure)
@@ -66,7 +67,7 @@ The ultimate goal is to create a structured dataset of persons mentioned in thes
 
 Before running the scripts in this repository, ensure the following prerequisites are met:
 
-#### 1. Python Environment
+#### Python Environment
 - Install **Python 3.11** or later.  
 - Ensure you have `pip` installed for managing Python packages.
 
@@ -118,6 +119,21 @@ Before running the scripts in this repository, ensure the following prerequisite
       ```
 
 #### MacOS:
+
+#### Install Homebrew (if not already installed):
+1. Open the Terminal and run:
+   ```bash
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   ```
+
+2. Follow the on-screen instructions to complete the installation.
+
+#### Verify Homebrew installation:
+```bash
+brew --version
+```
+
+#### Install Tesseract using Homebrew:
 ```bash
 brew install tesseract-lang
 ```
