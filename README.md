@@ -76,7 +76,7 @@ Before running the scripts in this repository, ensure the following prerequisite
   - Access to the model's API or framework.
   - Necessary hardware or cloud resources if running the model locally.
 
-##### Set Up API Keys or Configuration:
+##### Set Up Access Token:
 - Configure the API keys or local settings as required for Llama-3.1-8B-Instruct:
   1. Request access to the LLM on [Huggingface](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct)
   2. Create an access token on your Huggingface account and add 'meta-llama/Llama-3.1-8B-Instruct' repo to the repository permissions.
