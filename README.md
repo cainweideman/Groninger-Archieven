@@ -211,6 +211,7 @@ pip install vllm
 export HF_HOME=/tmp
 export HF_TOKEN=<HuggingFace Token>
 ```
+> **Note:** Perform this step everytime you activate the enviroment.
 
 #### 9. Serve the model:
 ```bash
